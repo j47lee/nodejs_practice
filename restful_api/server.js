@@ -29,18 +29,25 @@ app.get('/addUser', function(req,res){
   })
 })
 
-//show one user (not working yet)
+//show one user
 app.get('/:id', function(req,res){
   fs.readFile(__dirname + '/' + 'users.json', function(err,data){
     data = JSON.parse(data);
     var currentUser = 'user' + req.params.id;
-    console.log(currentUser);
-    // console.log(typeof currentUser);
-    // var user = data.currentUser;
-    // res.end(JSON.stringify(user))
+    var user = data['user'+req.params.id];
+    res.end(JSON.stringify(user))
   })
 })
 
+//delete user
+app.get('/deleteUser/:id', function(req,res){
+  fs.readFile(__dirname + '/' + 'users.json', function(err,data){
+    data = JSON.parse(data);
+    delete data['user'+req.params.id]
+    console.log(data);
+    res.end(JSON.stringify(data))
+  })
+})
 
 
 //server setup
